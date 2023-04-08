@@ -152,7 +152,7 @@ static int validateAndMap(private_handle_t *handle
     if (reserved_region_size == 0 && metadata->reservedSize) {
       size = getMetaDataSize(metadata->reservedSize);
       unmapAndReset(handle);
-      void *new_base = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, handle->fd_metadata, 0);
+      void *new_base = mmap(NULL, (size_t)size, PROT_READ | PROT_WRITE, MAP_SHARED, handle->fd_metadata, 0);
       if (new_base == reinterpret_cast<void *>(MAP_FAILED)) {
         ALOGE("%s: metadata mmap failed - handle:%p fd: %d err: %s", __func__, handle,
               handle->fd_metadata, strerror(errno));
